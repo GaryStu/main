@@ -16,32 +16,55 @@ public class Duke {
         System.out.println("     What can I do for you?");
         System.out.println(boundary);
         System.out.println();
-        echo();
-    }
+        String[] tasks = new String[100];
 
-    public static void echo() {
-        String boundary = "    ____________________________________________________________";
+        int currentIndex = 0;
         while (true) {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
             if (input.equals("bye")) {
-                System.out.println(boundary);
-                System.out.println("     " + "Bye. Hope to see you again soon!");
-                System.out.println(boundary);
-                System.out.println();
+                Bye();
                 break;
             }
+            else if (input.equals("list")) {
+                ListTasks(tasks);
+            }
             else {
+                tasks[currentIndex] = input;
                 System.out.println(boundary);
-                System.out.println("     " + input);
+                System.out.println("added: " + input);
                 System.out.println(boundary);
                 System.out.println();
+                currentIndex++;
             }
         }
 
-
+        }
+    public static void Bye() {
+        String boundary = "    ____________________________________________________________";
+        System.out.println(boundary);
+        System.out.println("     " + "Bye. Hope to see you again soon!");
+        System.out.println(boundary);
+        System.out.println();
     }
 
+    public static void ListTasks(String[] tasks) {
+        String boundary = "    ____________________________________________________________";
+        System.out.println(boundary);
+        for (int i = 1; i <= 100; i++) {
+            if (tasks[i - 1] == null || tasks[i - 1].length() == 0) {
+                break;
+            }
+            else {
+                System.out.println(i + ". " + tasks[i - 1]);
+            }
+        }
+        System.out.println(boundary);
+        System.out.println();
+    }
+
+
 }
+
 
 
