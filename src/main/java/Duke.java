@@ -19,23 +19,39 @@ public class Duke {
             if (splitCommand.length >= 2) {
                 description = splitCommand[1];
             }
-
-            if (input.equals("bye")) {
-                Bye();
-                break;
-            } else if (input.equals("list")) {
-                ListTasks(tasks);
-            } else if (command.equals("done")) {
-                DoneCommand(tasks, description);
-            } else if (command.equals("todo")) {
-                AddToDo(tasks, description);
-            } else if (command.equals("deadline")) {
-                AddDeadline(tasks, description);
-            } else if (command.equals("event")) {
-                AddEvent(tasks, description);
-            } else {
-                AddTask(tasks, description);
+            try {
+                if (command.equals("done") || command.equals("todo") || command.equals("event") || command.equals("deadline")) {
+                    if (description.equals("")) {
+                        throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
+                    }
+                }
+                if (input.equals("bye")) {
+                    Bye();
+                    break;
+                } else if (input.equals("list")) {
+                    ListTasks(tasks);
+                } else if (command.equals("done")) {
+                    DoneCommand(tasks, description);
+                } else if (command.equals("todo")) {
+                    AddToDo(tasks, description);
+                } else if (command.equals("deadline")) {
+                    AddDeadline(tasks, description);
+                } else if (command.equals("event")) {
+                    AddEvent(tasks, description);
+                } else {
+                    // AddTask(tasks, description);
+                    throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
+                }
+            } catch (DukeException e) {
+                String boundary = "    ____________________________________________________________";
+                String padding = "     ";
+                System.out.println(boundary);
+                System.out.println(padding + e.getMessage());
+                System.out.println(boundary);
+                System.out.println();
             }
+
+
         }
     }
 
@@ -89,7 +105,6 @@ public class Duke {
         System.out.println(padding + "  " + currentTask);
         System.out.println(boundary);
         System.out.println();
-        //TODO: we need to get the type of task for done also
     }
     public static void AddTask(ArrayList<Task> tasks, String input) {
         String boundary = "    ____________________________________________________________";
@@ -141,6 +156,14 @@ public class Duke {
         System.out.println(padding + "Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(boundary);
         System.out.println();
+    }
+
+    private static void validateInput(String command, String description) throws DukeException{
+        if (command == "done" || command == "todo" || command == "event" || command == "deadline") {
+            if (description == "") {
+                throw new DukeException(command);
+            }
+        }
     }
 }
 
@@ -218,6 +241,14 @@ class Event extends Task {
         return "[E]" + super.toString() + " (at: " + duration + ")";
     }
 }
+
+class DukeException extends Exception {
+    public DukeException(String message) {
+        super(message);
+    }
+}
+
+
 
 
 
