@@ -1,3 +1,6 @@
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.io.*;
@@ -261,6 +264,28 @@ public class Duke {
         } catch(IOException e) {
             System.out.println("Error writing to file '" + filePath + "'");
         }
+    }
+
+    public static LocalDate getDateFromString(String string, DateTimeFormatter format) {
+        LocalDate date = LocalDate.parse(string, format);
+        return date;
+    }
+    public static LocalDate StringtoDate(String str) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("" +
+                "[dd/MM/yyyy HHmm]" +
+                "[dd/MM/yy]" +
+                "[yyyy-MM-dd'T'HH:mm[:ss.n]]");
+        try {
+            return getDateFromString(str, formatter);
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Exception: " + e);
+        }
+        catch (DateTimeParseException e) {
+            System.out.println("Exception: " + e);
+        }
+        return null;
+
     }
 
 }
