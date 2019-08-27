@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Duke {
     public static void main(String[] args) {
@@ -7,6 +8,7 @@ public class Duke {
         Greeting();
         //Create an dynamic ArrayList for tasks
         ArrayList<Task> tasks = new ArrayList<>();
+        LoadFile(tasks);
         while (true) {
             Scanner in = new Scanner(System.in);
             String input = in.nextLine();
@@ -25,6 +27,7 @@ public class Duke {
                         throw new DukeException("\u2639 OOPS!!! The description of a " + command + " cannot be empty.");
                     }
                 }
+
                 if (input.equals("bye")) {
                     Bye();
                     break;
@@ -102,6 +105,7 @@ public class Duke {
         //we need to get the reference for the task in the array
         Task currentTask = tasks.get(commandNumber - 1);
         currentTask.markAsDone();
+        UpdateFile(tasks);
         System.out.println(padding + "  " + currentTask);
         System.out.println(boundary);
         System.out.println();
@@ -110,6 +114,7 @@ public class Duke {
         String boundary = "    ____________________________________________________________";
         String padding = "     ";
         tasks.add(new Task(input));
+        UpdateFile(tasks);
         System.out.println(boundary);
         System.out.println(padding + "added: " + input);
         System.out.println(boundary);
@@ -121,6 +126,7 @@ public class Duke {
         String padding = "     ";
         ToDo newToDo = new ToDo(description);
         tasks.add(newToDo);
+        UpdateFile(tasks);
         System.out.println(boundary);
         System.out.println(padding + "Got it. I've added this task:");
         System.out.println(padding + "  " + newToDo);
@@ -136,6 +142,7 @@ public class Duke {
         String SplitString[] = description.split(" /by ", 2);
         Deadline newDeadline = new Deadline(SplitString[0], SplitString[1]);
         tasks.add(newDeadline);
+        UpdateFile(tasks);
         System.out.println(boundary);
         System.out.println(padding + "Got it. I've added this task:");
         System.out.println(padding + "  " + newDeadline);
@@ -150,6 +157,7 @@ public class Duke {
         String SplitString[] = description.split(" /at ", 2);
         Event newEvent = new Event(SplitString[0], SplitString[1]);
         tasks.add(newEvent);
+        UpdateFile(tasks);
         System.out.println(boundary);
         System.out.println(padding + "Got it. I've added this task:");
         System.out.println(padding + "  " + newEvent);
@@ -158,13 +166,103 @@ public class Duke {
         System.out.println();
     }
 
-    private static void validateInput(String command, String description) throws DukeException{
-        if (command == "done" || command == "todo" || command == "event" || command == "deadline") {
-            if (description == "") {
-                throw new DukeException(command);
+    public static void LoadFile(ArrayList<Task> tasks) {
+        String fileName = ".\\Data\\duke.txt";
+        String line = null;
+
+        try {
+            FileReader fileReader = new FileReader(fileName);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+            while((line = bufferedReader.readLine()) != null) {
+                ParseLine(line, tasks);
             }
+
+            bufferedReader.close();
+        }
+        catch(FileNotFoundException e) {
+            System.out.println("Unable to open file '" + fileName + "'");
+        } catch (IOException e) {
+            System.out.println("Error reading file '" + fileName + "'");
+            e.printStackTrace();
         }
     }
+
+    public static void ParseLine(String line, ArrayList<Task> tasks) {
+        String[] splitLine = line.split(" \\| ");
+        String taskType = splitLine[0];
+        boolean isDone = splitLine[1].equals("1");
+        String description = splitLine[2];
+
+        String timeFrame = "";
+        if (taskType.equals("D") || taskType.equals("E")) {
+            timeFrame = splitLine[3];
+        }
+        if (taskType.equals("T")) {
+            ParseToDo(tasks, description, isDone);
+        } else if (taskType.equals("D")) {
+            ParseDeadline(tasks, description, timeFrame, isDone);
+        } else if (taskType.equals("E")) {
+            ParseEvent(tasks, description, timeFrame, isDone);
+        }
+    }
+
+    public static void ParseToDo(ArrayList<Task> tasks, String description, boolean isDone) {
+        ToDo newToDo = new ToDo(description);
+        if (isDone) {
+            newToDo.markAsDone();
+        }
+        tasks.add(newToDo);
+    }
+    public static void ParseDeadline(ArrayList<Task> tasks, String description, String by, boolean isDone) {
+        Deadline newDeadline = new Deadline(description, by);
+        if (isDone) {
+            newDeadline.markAsDone();
+        }
+        tasks.add(newDeadline);
+    }
+
+    public static void ParseEvent(ArrayList<Task> tasks, String description, String duration, boolean isDone) {
+        Event newEvent = new Event(description, duration);
+        if (isDone) {
+            newEvent.markAsDone();
+        }
+        tasks.add(newEvent);
+    }
+
+    public static void UpdateFile(ArrayList<Task> tasks) {
+        String filePath= ".\\Data\\duke.txt";
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currentTask = tasks.get(i);
+                String currentLine = currentTask.toString();
+                if (i > 0) {
+                    bufferedWriter.newLine();
+                }
+                String status = "0";
+                if (currentTask.isDone) {
+                    status = "1";
+                }
+
+                bufferedWriter.write(currentTask.type + " | " + status + " | " + currentTask.description);
+                if ((currentTask.type).equals("E")) {
+                    String timeFrame = (currentLine.split("at: ", 2))[1];
+                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                }
+                else if ((currentTask.type).equals("D")) {
+                    String timeFrame = (currentLine.split("by: ", 2))[1];
+                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                }
+            }
+
+            bufferedWriter.close();
+        } catch(IOException e) {
+            System.out.println("Error writing to file '" + filePath + "'");
+        }
+    }
+
 }
 
 class Task {
@@ -191,7 +289,8 @@ class Task {
 
     @Override
     public String toString() {
-        return this.getStatusIcon() + this.type + " " + this.description;
+        return this.getStatusIcon() + " " + this.description;
+        //TODO: refactor this by using type also
     }
 
 }
@@ -201,6 +300,7 @@ class ToDo extends Task {
 
     public ToDo(String description) {
         super(description);
+        super.type = "T";
     }
 
     @Override
@@ -217,6 +317,7 @@ class Deadline extends Task {
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
+        super.type = "D";
     }
 
     @Override
@@ -234,6 +335,7 @@ class Event extends Task {
     public Event(String description, String duration) {
         super(description);
         this.duration = duration;
+        super.type = "E";
     }
 
     @Override
@@ -247,6 +349,7 @@ class DukeException extends Exception {
         super(message);
     }
 }
+
 
 
 
