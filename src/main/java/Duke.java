@@ -44,6 +44,8 @@ public class Duke {
                     AddDeadline(tasks, description);
                 } else if (command.equals("event")) {
                     AddEvent(tasks, description);
+                } else if (command.equals("delete")) {
+                    DeleteCommand(tasks, description);
                 } else {
                     // AddTask(tasks, description);
                     throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -101,7 +103,6 @@ public class Duke {
     public static void DoneCommand(ArrayList<Task> tasks, String description) {
         String boundary = "    ____________________________________________________________";
         String padding = "     ";
-        System.out.println(boundary);
         int commandNumber = Integer.parseInt(description);
         System.out.println(boundary);
         System.out.println("     Nice! I've marked this task as done:");
@@ -110,6 +111,22 @@ public class Duke {
         currentTask.markAsDone();
         UpdateFile(tasks);
         System.out.println(padding + "  " + currentTask);
+        System.out.println(boundary);
+        System.out.println();
+    }
+
+    public static void DeleteCommand(ArrayList<Task> tasks, String description) {
+        String boundary = "    ____________________________________________________________";
+        String padding = "     ";
+        int commandNumber = Integer.parseInt(description);
+        System.out.println(boundary);
+        System.out.println("     Noted. I've removed this task:");
+        //we need to get the reference for the task in the array
+        Task currentTask = tasks.get(commandNumber - 1);
+        tasks.remove(commandNumber - 1);
+        UpdateFile(tasks);
+        System.out.println(padding + "  " + currentTask);
+        System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
         System.out.println(boundary);
         System.out.println();
     }
@@ -278,18 +295,15 @@ public class Duke {
         try {
             return getDateFromString(str, formatter);
         }
-        catch (IllegalArgumentException e) {
-            System.out.println("Exception: " + e);
-        }
-        catch (DateTimeParseException e) {
+        catch (IllegalArgumentException | DateTimeParseException e) {
             System.out.println("Exception: " + e);
         }
         return null;
 
     }
 
-}
 
+}
 class DukeException extends Exception {
     public DukeException(String message) {
         super(message);
