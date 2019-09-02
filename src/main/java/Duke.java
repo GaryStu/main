@@ -46,6 +46,8 @@ public class Duke {
                     AddEvent(tasks, description);
                 } else if (command.equals("delete")) {
                     DeleteCommand(tasks, description);
+                } else if (command.equals("find")) {
+                    FindTask(tasks, description);
                 } else {
                     // AddTask(tasks, description);
                     throw new DukeException("\u2639 OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -98,6 +100,17 @@ public class Duke {
         }
         System.out.println(boundary);
         System.out.println();
+    }
+
+    public static void FindTask(ArrayList<Task> tasks, String description) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task element: tasks) {
+            String currentTaskString = element.toString();
+            if (currentTaskString.contains(description)) {
+                matchingTasks.add(element);
+            }
+        }
+        ListTasks(matchingTasks);
     }
 
     public static void DoneCommand(ArrayList<Task> tasks, String description) {
