@@ -27,7 +27,7 @@ public class Storage {
         return tasks;
     }
 
-    public static void loadFile(String line, ArrayList<Task> tasks) {
+    private static void loadFile(String line, ArrayList<Task> tasks) {
         String[] splitLine = line.split(" \\| ");
         String taskType = splitLine[0];
         boolean isDone = splitLine[1].equals("1");
@@ -70,5 +70,37 @@ public class Storage {
             newEvent.markAsDone();
         }
         tasks.add(newEvent);
+    }
+
+    //TODO: maybe we can put the errors in the ui file
+    void updateFile(ArrayList<Task> tasks) {
+        try {
+            FileWriter fileWriter = new FileWriter(filePath);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            for (int i = 0; i < tasks.size(); i++) {
+                Task currentTask = tasks.get(i);
+                String currentLine = currentTask.toString();
+                if (i > 0) {
+                    bufferedWriter.newLine();
+                }
+                String status = "0";
+                if (currentTask.isDone) {
+                    status = "1";
+                }
+                bufferedWriter.write(currentTask.type + " | " + status + " | " + currentTask.description);
+                if ((currentTask.type).equals("E")) {
+                    String timeFrame = (currentLine.split("at: ", 2))[1];
+                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                }
+                else if ((currentTask.type).equals("D")) {
+                    String timeFrame = (currentLine.split("by: ", 2))[1];
+                    bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
+                }
+            }
+            bufferedWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file '" + filePath + "'");
+            e.printStackTrace();
+        }
     }
 }
