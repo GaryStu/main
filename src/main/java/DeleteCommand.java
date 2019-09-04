@@ -10,8 +10,8 @@ public class DeleteCommand extends Command {
     public void execute(TaskList tasks, Ui ui, Storage storage) {
         ArrayList<Task> currentTasks = tasks.getTasks();
         Task currentTask = currentTasks.get(index - 1);
-        ui.showDeleted(currentTask, currentTasks);
         tasks.delete(index);
+        ui.showDeleted(currentTask, currentTasks);
         storage.updateFile(currentTasks);
     }
 }

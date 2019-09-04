@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class AddCommand extends Command {
     private Task task;
 
@@ -7,6 +9,10 @@ public class AddCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.showAdded();
+        ArrayList<Task> currentTasks = tasks.getTasks();
+        currentTasks.add(task);
+        ui.showAdded(task, currentTasks);
+        storage.updateFile(currentTasks);
     }
+
 }

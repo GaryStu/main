@@ -8,7 +8,7 @@ public class Storage {
         this.filePath = filePath;
     }
 
-    ArrayList<Task> load() {
+    ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(filePath);
@@ -20,9 +20,9 @@ public class Storage {
             bufferedReader.close();
 
         } catch(FileNotFoundException e) {
-            System.out.println("Unable to open file '" + filePath + "'");
+            throw new DukeException("Unable to open file '" + filePath + "'");
         } catch (IOException e) {
-            System.out.println("Error reading file '" + filePath + "'");
+            throw new DukeException("Error reading file '" + filePath + "'");
         }
         return tasks;
     }

@@ -6,7 +6,7 @@ public class TaskList {
     TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
-
+    TaskList() {;}
     void add(Task newTask) { (this.tasks).add(newTask);}
     void add(ToDo newToDo) {
         (this.tasks).add(newToDo);
