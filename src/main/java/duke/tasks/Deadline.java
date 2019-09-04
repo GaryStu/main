@@ -1,5 +1,6 @@
+package duke.tasks;
 //tasks that need to be done before a specific date/time
-class Deadline extends Task {
+public class Deadline extends Task {
 
     protected String by;
 

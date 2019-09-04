@@ -1,8 +1,12 @@
+package duke.commands;
+import duke.tasks.*;
+import duke.ui.Ui;
+import duke.storage.Storage;
 import java.util.ArrayList;
 
 public class DeleteCommand extends Command {
     private int index;
-    DeleteCommand(int index) {
+    public DeleteCommand(int index) {
         this.index = index;
     }
 

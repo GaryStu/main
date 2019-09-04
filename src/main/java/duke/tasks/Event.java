@@ -1,5 +1,6 @@
+package duke.tasks;
 //tasks that start at a specific time and ends at a specific time
-class Event extends Task {
+public class Event extends Task {
     protected String duration;
 
     public Event(String description, String duration) {

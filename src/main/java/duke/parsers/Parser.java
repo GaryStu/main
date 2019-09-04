@@ -1,3 +1,7 @@
+package duke.parsers;
+import duke.commands.*;
+import duke.exceptions.DukeException;
+import duke.tasks.*;
 public class Parser {
     public static Command parse(String fullCommand) throws DukeException {
         //TODO: Put error for invalid input and what not

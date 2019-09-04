@@ -1,9 +1,13 @@
+package duke.commands;
+import duke.tasks.*;
+import duke.ui.Ui;
+import duke.storage.Storage;
 import java.util.ArrayList;
 
 public class FindCommand extends Command {
     private String description;
 
-    FindCommand(String description) {
+    public FindCommand(String description) {
         this.description = description;
     }
 

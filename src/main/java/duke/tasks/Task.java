@@ -1,4 +1,5 @@
-class Task {
+package duke.tasks;
+public class Task {
     protected String description;
     protected String type = "";
     protected boolean isDone;
@@ -18,6 +19,14 @@ class Task {
 
     public void markAsDone() {
         this.isDone = true;
+    }
+
+    public boolean getisDone() {
+        return this.isDone;
+    }
+
+    public String getType() {
+        return this.type;
     }
 
 

@@ -1,3 +1,11 @@
+package duke;
+
+import duke.commands.*;
+import duke.exceptions.DukeException;
+import duke.parsers.*;
+import duke.storage.Storage;
+import duke.ui.Ui;
+import duke.tasks.*;
 
 public class Duke {
 
@@ -39,11 +47,7 @@ public class Duke {
     }
 }
 
-class DukeException extends Exception {
-    public DukeException(String message) {
-        super(message);
-    }
-}
+
 
 
 

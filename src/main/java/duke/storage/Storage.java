@@ -1,14 +1,19 @@
+package duke.storage;
+
 import java.io.*;
 import java.util.ArrayList;
+
+import duke.exceptions.DukeException;
+import duke.tasks.*;
 
 public class Storage {
     private String filePath;
     private String line = null;
-    Storage(String filePath) {
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    ArrayList<Task> load() throws DukeException {
+    public ArrayList<Task> load() throws DukeException {
         ArrayList<Task> tasks = new ArrayList<>();
         try {
             FileReader fileReader = new FileReader(filePath);
@@ -73,7 +78,7 @@ public class Storage {
     }
 
     //TODO: maybe we can put the errors in the ui file
-    void updateFile(ArrayList<Task> tasks) {
+    public void updateFile(ArrayList<Task> tasks) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
@@ -84,15 +89,15 @@ public class Storage {
                     bufferedWriter.newLine();
                 }
                 String status = "0";
-                if (currentTask.isDone) {
+                if (currentTask.getisDone()) {
                     status = "1";
                 }
-                bufferedWriter.write(currentTask.type + " | " + status + " | " + currentTask.description);
-                if ((currentTask.type).equals("E")) {
+                bufferedWriter.write(currentTask.getType() + " | " + status + " | " + currentTask.getDescription());
+                if ((currentTask.getType()).equals("E")) {
                     String timeFrame = (currentLine.split("at: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
                 }
-                else if ((currentTask.type).equals("D")) {
+                else if ((currentTask.getType()).equals("D")) {
                     String timeFrame = (currentLine.split("by: ", 2))[1];
                     bufferedWriter.write(" | " + timeFrame.substring(0, timeFrame.length() - 1));
                 }

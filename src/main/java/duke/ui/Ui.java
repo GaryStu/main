@@ -1,3 +1,7 @@
+package duke.ui;
+
+import duke.tasks.*;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,7 +15,7 @@ public class Ui {
     private static final String boundary = "    ____________________________________________________________";
     private static final String padding = "     ";
 
-    void showWelcome() {
+    public void showWelcome() {
         System.out.println("Hello from\n" + logo);
         System.out.println(boundary);
         System.out.println(padding + "Hello! I'm Duke");
@@ -20,7 +24,7 @@ public class Ui {
         System.out.println();
     }
 
-    void showLine() {
+    public void showLine() {
         System.out.println(boundary);
     }
 
@@ -28,11 +32,11 @@ public class Ui {
         System.out.print(padding);
     }
 
-    void showBye() {
+    public void showBye() {
         System.out.println("     " + "Bye. Hope to see you again soon!");
     }
 
-    void showList(ArrayList<Task> tasks) {
+    public void showList(ArrayList<Task> tasks) {
         showPadding();
         System.out.println("Here are the tasks in your list: ");
         for (int i = 1; i <= tasks.size(); i++) {
@@ -42,35 +46,35 @@ public class Ui {
         }
     }
 
-    void showDone(Task currentTask) {
+    public void showDone(Task currentTask) {
         showPadding();
         System.out.println("Nice! I've marked this task as done:");
         showPadding();
         System.out.println("  " + currentTask);
     }
 
-    void showAdded(Task currentTask, ArrayList<Task> tasks) {
+    public void showAdded(Task currentTask, ArrayList<Task> tasks) {
         System.out.println("     Got it. I've added this task:");
         System.out.println("       " + currentTask);
         System.out.println("     Now you have " + tasks.size() + " tasks in the list.");
     }
-    void showDeleted(Task currentTask, ArrayList<Task> tasks) {
+    public void showDeleted(Task currentTask, ArrayList<Task> tasks) {
         System.out.println("     Noted. I've removed this task:");
         System.out.println("       " + currentTask);
         System.out.println("     Now you have " + (tasks.size() - 1)  + " tasks in the list.");
     }
 
-    String readCommand() {
+    public String readCommand() {
         Scanner in = new Scanner(System.in);
         String input = in.nextLine();
         return input;
     }
 
-    void showError(String message) {
+    public void showError(String message) {
         System.out.println("     " + message);
     }
 
-    void showLoadingError() {
+    public void showLoadingError() {
         System.out.println("     Failed to load file.");
     }
 
