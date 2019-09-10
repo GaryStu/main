@@ -10,7 +10,6 @@ Hello from
      What can I do for you?
     ____________________________________________________________
 
-list
     ____________________________________________________________
      Here are the tasks in your list: 
      1. [T][?] read book
@@ -18,37 +17,36 @@ list
      3. [T][?] finish assignment
      4. [D][?] do chores (by: Saturday)
      5. [E][?] hackathon (at: Fri 8am-5pm)
+     6. [T][?] finish assignment
+     7. [E][?] hackathon (at: Fri 8am-5pm)
+     8. [T][?] finish assignment
+     9. [D][?] do chores (by: Saturday)
+     10. [E][?] hackathon (at: Fri 8am-5pm)
     ____________________________________________________________
-done 2
     ____________________________________________________________
      Nice! I've marked this task as done:
        [D][?] return book (by: June 6th)
     ____________________________________________________________
-todo finish assignment
     ____________________________________________________________
      Got it. I've added this task:
        [T][?] finish assignment
-     Now you have 6 tasks in the list.
+     Now you have 11 tasks in the list.
     ____________________________________________________________
-deadline do chores /by Saturday
     ____________________________________________________________
      Got it. I've added this task:
        [D][?] do chores (by: Saturday)
-     Now you have 7 tasks in the list.
+     Now you have 12 tasks in the list.
     ____________________________________________________________
-event hackathon /at Fri 8am-5pm
     ____________________________________________________________
      Got it. I've added this task:
        [E][?] hackathon (at: Fri 8am-5pm)
-     Now you have 8 tasks in the list.
+     Now you have 13 tasks in the list.
     ____________________________________________________________
-delete 3
     ____________________________________________________________
      Noted. I've removed this task:
        [T][?] finish assignment
-     Now you have 6 tasks in the list.
+     Now you have 11 tasks in the list.
     ____________________________________________________________
-bye
     ____________________________________________________________
      Bye. Hope to see you again soon!
     ____________________________________________________________

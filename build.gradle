@@ -9,7 +9,7 @@ checkstyle {
     toolVersion = '8.1'
 }
 
-group 'seedu.duke'
+group 'duke'
 version '0.1.0'
 
 shadowJar {
@@ -23,7 +23,9 @@ shadowJar {
 repositories {
     mavenCentral()
 }
-
+run {
+    standardInput = System.in;
+}
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter:5.5.0'
 }
@@ -34,5 +36,5 @@ test {
 
 application {
     // Change this to your main class.
-    mainClassName = "Duke"
+    mainClassName = "duke.Duke"
 }

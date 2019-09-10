@@ -1,13 +1,13 @@
-package storage;
+package duke.storage;
 
 import java.io.*;
 import java.util.ArrayList;
 
-import exceptions.DukeException;
-import tasks.Deadline;
-import tasks.Event;
-import tasks.Task;
-import tasks.ToDo;
+import duke.exceptions.DukeException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 /**
  * Storage is a public class, a storage class encapsulates the filePath to read from and write to

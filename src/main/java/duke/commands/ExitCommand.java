@@ -1,7 +1,7 @@
-package commands;
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+package duke.commands;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
 
 /**
  * ExitCommand is a public class that extends from the abstract class Command

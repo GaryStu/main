@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * Event is a public class that inherits form abstract class Task

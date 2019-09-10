@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * Deadline is a public class that inherits from abstract class Task

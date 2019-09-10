@@ -1,9 +1,13 @@
-import commands.Command;
-import exceptions.DukeException;
-import storage.Storage;
-import tasks.TaskList;
-import ui.Ui;
-import parsers.Parser;
+package duke;
+
+import duke.commands.Command;
+import duke.exceptions.DukeException;
+import duke.storage.Storage;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+import duke.parsers.Parser;
+
+import java.util.Scanner;
 
 /**
  * Duke is a public class that contains the main function to drive the program
@@ -14,6 +18,7 @@ public class Duke {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Scanner in = new Scanner(System.in);
 
     /**
      * This is a constructor of Duke to start the program
@@ -38,7 +43,7 @@ public class Duke {
         boolean isExit = false;
         while (!isExit) {
             try {
-                String fullCommand = ui.readCommand();
+                String fullCommand = ui.readCommand(in);
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
                 c.execute(tasks, ui, storage);
@@ -56,7 +61,7 @@ public class Duke {
      * @param args
      */
     public static void main(String[] args) {
-        new Duke("../src/main/java/Data/duke.txt").run();
+        new Duke("../src/main/java/duke/Data/duke.txt").run();
     }
 }
 

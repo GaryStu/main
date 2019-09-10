@@ -1,7 +1,7 @@
-package commands;
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+package duke.commands;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
 
 /**
  * Command is the abstract base class for all the command objects

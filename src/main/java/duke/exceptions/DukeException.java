@@ -1,4 +1,4 @@
-package exceptions;
+package duke.exceptions;
 
 /**
  * DukeException is an exception class that extends from the class Exception

@@ -1,7 +1,6 @@
-package ui;
+package duke.ui;
 
-
-import tasks.Task;
+import duke.tasks.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +15,7 @@ public class Ui {
     private static final String boundary = "    ____________________________________________________________";
     private static final String padding = "     ";
 
-    Scanner in = new Scanner(System.in);
+    public Scanner in = new Scanner(System.in);
     public void showWelcome() {
         System.out.println("Hello from\n" + logo);
         System.out.println(boundary);
@@ -66,9 +65,8 @@ public class Ui {
         System.out.println("     Now you have " + (tasks.size() - 1)  + " tasks in the list.");
     }
 
-    public String readCommand() {
+    public String readCommand(Scanner in) {
         String input = in.nextLine();
-        System.out.println(input);
         return input;
     }
 

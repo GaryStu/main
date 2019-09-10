@@ -1,9 +1,9 @@
-package commands;
+package duke.commands;
 import java.util.ArrayList;
-import tasks.Task;
-import tasks.TaskList;
-import ui.Ui;
-import storage.Storage;
+import duke.tasks.Task;
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+import duke.storage.Storage;
 
 /**
  * AddCommand is a public class that inherits from abstract class Command

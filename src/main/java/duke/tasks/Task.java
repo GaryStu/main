@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * Task is a public class that represents the tasks in duke
@@ -21,7 +21,7 @@ public class Task {
 
     /**
      * This function checks whether the particular task object is done and return the string accordingly
-      * @return <code>[\u2713]</code> if the task is done
+     * @return <code>[\u2713]</code> if the task is done
      *          <code>[\u2718]</code> if the task is not done
      */
     public String getStatusIcon() {

@@ -1,4 +1,4 @@
-package tasks;
+package duke.tasks;
 
 /**
  * Task is a public class that extends from Task
